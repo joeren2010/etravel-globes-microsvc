@@ -1,0 +1,5 @@
+package com.globes.repository;
+
+public interface ResvRepository {
+
+}
