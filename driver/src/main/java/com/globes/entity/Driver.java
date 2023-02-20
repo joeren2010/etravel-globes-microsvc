@@ -1,11 +1,8 @@
 package com.globes.entity;
 
 import java.time.LocalDate;
+import javax.persistence.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 @Entity
 public class Driver {
@@ -13,11 +10,21 @@ public class Driver {
 	@Id                          							//indicates the column below it is the primary key
 	@GeneratedValue(strategy = GenerationType.IDENTITY)     //auto-generate the ID in sql
 	private int driverid;
-	private String email;
-	private String password;
 	private String fullname;
-	private int logintype;
+	private String address;
+	private String phone;
+	private String email;
+	private String username;
+	private String password;
+	private String cfmpassword;
 	private LocalDate addedon;
+	private int logintype;
+	
+	@PrePersist
+	private void onCreate() {
+		addedon = LocalDate.now();
+		logintype = 2;
+	}
 	
 	
 	//default constructor
@@ -27,14 +34,19 @@ public class Driver {
 
 	
 	//parameterized constructor
-	public Driver(int driverid, String email, String password, String fullname, int logintype, LocalDate addedon) {
+	public Driver(int driverid, String fullname, String address, String phone, String email, String username,
+			String password, String cfmpassword, LocalDate addedon, int logintype) {
 		super();
 		this.driverid = driverid;
-		this.email = email;
-		this.password = password;
 		this.fullname = fullname;
-		this.logintype = logintype;
+		this.address = address;
+		this.phone = phone;
+		this.email = email;
+		this.username = username;
+		this.password = password;
+		this.cfmpassword = cfmpassword;
 		this.addedon = addedon;
+		this.logintype = logintype;
 	}
 
 	
@@ -47,12 +59,44 @@ public class Driver {
 		this.driverid = driverid;
 	}
 
+	public String getFullname() {
+		return fullname;
+	}
+
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
 	public String getEmail() {
 		return email;
 	}
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {
@@ -63,20 +107,12 @@ public class Driver {
 		this.password = password;
 	}
 
-	public String getFullname() {
-		return fullname;
+	public String getCfmpassword() {
+		return cfmpassword;
 	}
 
-	public void setFullname(String fullname) {
-		this.fullname = fullname;
-	}
-
-	public int getLogintype() {
-		return logintype;
-	}
-
-	public void setLogintype(int logintype) {
-		this.logintype = logintype;
+	public void setCfmpassword(String cfmpassword) {
+		this.cfmpassword = cfmpassword;
 	}
 
 	public LocalDate getAddedon() {
@@ -87,11 +123,20 @@ public class Driver {
 		this.addedon = addedon;
 	}
 
+	public int getLogintype() {
+		return logintype;
+	}
+
+	public void setLogintype(int logintype) {
+		this.logintype = logintype;
+	}
 
 	//override to-string method
 	@Override
 	public String toString() {
-		return "Driver [driverid=" + driverid + ", email=" + email + ", password=" + password + ", fullname=" + fullname
-				+ ", logintype=" + logintype + ", addedon=" + addedon + "]";
+		return "Driver [driverid=" + driverid + ", fullname=" + fullname + ", address=" + address + ", phone=" + phone
+				+ ", email=" + email + ", username=" + username + ", password=" + password + ", cfmpassword="
+				+ cfmpassword + ", addedon=" + addedon + ", logintype=" + logintype + "]";
 	}
+	
 }

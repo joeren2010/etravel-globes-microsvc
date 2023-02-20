@@ -71,6 +71,6 @@ public class CabService {
 	
 	public String deleteAllCab() {
 		cabRepository.deleteAll();
-		return "Add cab deleted";
+		return "All cab deleted";
 	}
 }

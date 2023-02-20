@@ -28,6 +28,7 @@ public class ClientController {
 	public String signUp(@RequestBody Client client) {
 		System.out.println(client);
 		return clientService.signUp(client);
+		//return "done";
 	}
 	
 	//code for admin sign-in

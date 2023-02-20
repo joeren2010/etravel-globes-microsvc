@@ -1,9 +1,9 @@
 package com.globes.service;
 
-import java.util.Locale.Category;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.client.RestTemplate;
+
+import com.globes.entity.Category;
 
 
 public class ApiCall {

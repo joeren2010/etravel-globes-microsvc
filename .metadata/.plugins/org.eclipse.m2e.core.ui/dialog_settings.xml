@@ -2,6 +2,7 @@
 <section name="Workbench">
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+			<item value="V:\Web\WebJoe\etravels\globes\cart"/>
 			<item value="V:\Web\WebJoe\etravels\globes\resvcab"/>
 			<item value="V:\Web\WebJoe\etravels\globes\resv"/>
 			<item value="V:\Web\WebJoe\etravels\globes\driver"/>

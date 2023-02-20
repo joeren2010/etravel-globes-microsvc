@@ -20,22 +20,28 @@ SHOW TABLES;
 -- view table: cab
 DESC cab;
 SELECT * FROM cab;
--- view table: imageinfo
-DESC imageinfo;
-SELECT * FROM imageinfo;
-#ALTER TABLE cab AUTO_INCREMENT = 1;
-
-
--- create database: category
-SHOW DATABASES;
-CREATE DATABASE globes_category;
-USE globes_category;
-SHOW TABLES;
-#DROP DATABASE globes_category;
 -- view table: category
 DESC category;
 SELECT * FROM category;
+-- view table: imageinfo
+DESC imageinfo;
+SELECT * FROM imageinfo;
+#UPDATE cab SET unitPrice = 0.50 WHERE cabid = 6;
+#ALTER TABLE cab AUTO_INCREMENT = 1;
 #ALTER TABLE category AUTO_INCREMENT = 1;
+
+
+-- create database: cart
+SHOW DATABASES;
+CREATE DATABASE globes_cart;
+USE globes_cart;
+SHOW TABLES;
+#DROP DATABASE globes_cart;
+-- view table: cart
+DESC cart;
+SELECT * FROM cart;
+#ALTER TABLE cart DROP COLUMN unitPrice;
+#UPDATE cart SET unitPrice = 0.50 WHERE cartid = 6;
 
 
 -- create database: client
@@ -47,6 +53,7 @@ SHOW TABLES;
 -- view table: client
 DESC client;
 SELECT * FROM client;
+#UPDATE client SET logintype = 1 WHERE clientid = 1;
 #SELECT * FROM client clt WHERE clt.email = 'client1@gmail.com' AND clt.password = 'client123';
 #INSERT INTO client(email,password,full_name,added_on) VALUES('client1@gmail.com','client123','Client-1',current_date());
 
@@ -60,6 +67,7 @@ SHOW TABLES;
 -- view table: driver
 DESC driver;
 SELECT * FROM driver;
+#UPDATE driver SET logintype = 2 WHERE driverid = 1;
 #SELECT * FROM driver dvr WHERE dvr.email = 'driver1@gmail.com' AND dvr.password = 'driver123';
 #INSERT INTO driver(email,password,full_name,added_on) VALUES('driver1@gmail.com','driver123','Driver-1',current_date());
 
@@ -93,23 +101,15 @@ SELECT * FROM resvcab;
 
 
 
-
--- create database: cab
+-- create database: category
 SHOW DATABASES;
-CREATE DATABASE globes_cab;
-USE globes_cab;
+CREATE DATABASE globes_category;
+USE globes_category;
 SHOW TABLES;
-#DROP DATABASE globes_cab;
--- view table: cab
-DESC cab;
-SELECT * FROM cab;
--- view table: imageinfo
-DESC imageinfo;
-SELECT * FROM imageinfo;
+#DROP DATABASE globes_category;
 -- view table: category
 DESC category;
 SELECT * FROM category;
-#ALTER TABLE cab AUTO_INCREMENT = 1;
 #ALTER TABLE category AUTO_INCREMENT = 1;
 
 

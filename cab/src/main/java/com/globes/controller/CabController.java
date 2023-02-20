@@ -41,7 +41,7 @@ public class CabController {
 		return cabService.findAllCab();
 	}
 	
-	// http://localhost:8383/cab/findCabById/1 or // http://localhost:7171/cab/findCabById/100
+	// http://localhost:7171/cab/findCabById/1 or // http://localhost:7171/cab/findCabById/100
 	@GetMapping(value = "findCabById/{pid}")
 	//@pathvariable extracts data directly from the url e.g: pid = 1 or 100 as above
 	public String findCabById(@PathVariable("pid") int pid) {

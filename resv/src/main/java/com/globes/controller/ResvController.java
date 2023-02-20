@@ -18,14 +18,14 @@ import com.globes.service.ResvService;
 
 
 @RestController						//use rest-controller for frameworks like angular, etc
-@RequestMapping("resv") 		//map url to products webpage = http://localhost:7171/cab
+@RequestMapping("resv") 		//map url to products webpage = http://localhost:4141/resv
 @CrossOrigin						//to address CORS issues
 public class ResvController {
 	//instantiates class using autowired
 	@Autowired
 	ResvService resvService;
 	
-	// http://localhost:7171/cab/storeResv 
+	// http://localhost:4141/cab/storeResv 
 	@PostMapping(value = "storeResv",consumes = MediaType.APPLICATION_JSON_VALUE)	//pass data in json format 
 	//@request-body binds the http request values to the entity class
 	public String storeResv(@RequestBody Resv resv) {
@@ -34,41 +34,41 @@ public class ResvController {
 		return resvService.storeResv(resv);
 	}
 	
-	// http://localhost:7171/resv/findAllResv
+	// http://localhost:4141/resv/findAllResv
 	@GetMapping(value = "findAllResv",produces = MediaType.APPLICATION_JSON_VALUE)		//pass data in json format
 	public List<Resv> findAllResv() {
 		return resvService.findAllResv();
 	}
 	
-	// http://localhost:8383/resv/findResvById/1 or // http://localhost:7171/resv/findResvById/100
+	// http://localhost:4141/resv/findResvById/1 or // http://localhost:4141/resv/findResvById/100
 	@GetMapping(value = "findResvById/{pid}")
 	//@pathvariable extracts data directly from the url e.g: pid = 1 or 100 as above
 	public String findResvById(@PathVariable("pid") int pid) {
 		return resvService.findResvById(pid);
 	}
 	
-	// http://localhost:7171/resv/findResvByPrice/35000
+	// http://localhost:4141/resv/findResvByPrice/35000
 	@GetMapping(value = "findResvByPrice/{price}")
 	//@pathvariable extracts data directly from the url e.g: price = 35000 as above
 	public List<Resv> findResvByPrice(@PathVariable("price") int price) {
 		return resvService.findResvByPrice(price);
 	}
 	
-	// http://localhost:7171/resv/updateResv
+	// http://localhost:4141/resv/updateResv
 	@PutMapping(value = "updateResv",consumes = MediaType.APPLICATION_JSON_VALUE)		//pass data in json format
 	//@request-body binds the http request values to the entity class
 	public String updateResv(@RequestBody Resv resv) {
 		return resvService.updateResvDetails(resv);
 	}
 	
-	// http://localhost:7171/resv/deleteResvById/1
+	// http://localhost:4141/resv/deleteResvById/1
 	@DeleteMapping(value = "deleteResvById/{pid}")
 	//@pathvariable extracts data directly from the url e.g: pid = 1 as above
 	public String deletetResvById(@PathVariable("pid") int pid) {
 		return resvService.deleteResvUsingId(pid);
 	}
 	
-	// http://localhost:7171/resv/deleteAll
+	// http://localhost:4141/resv/deleteAll
 	@DeleteMapping(value = "deleteAll")
 	public String deletetAll() {
 		return resvService.deleteAllResv();

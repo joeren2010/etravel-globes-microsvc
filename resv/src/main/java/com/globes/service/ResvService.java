@@ -14,6 +14,8 @@ public class ResvService {
 	//instantiates interface using autowired
 	@Autowired
 	ResvRepository resvRepository;
+	@Autowired
+	ApiCall apiCall;
 	
 	public String storeResv(Resv resv) {
 		resvRepository.save(resv);			//insert query = similar to pojo
