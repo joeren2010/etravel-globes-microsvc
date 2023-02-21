@@ -18,7 +18,7 @@ import com.globes.service.ResvService;
 
 
 @RestController						//use rest-controller for frameworks like angular, etc
-@RequestMapping("resv") 		//map url to products webpage = http://localhost:4141/resv
+@RequestMapping("resv") 			//map url to resv webpage = http://localhost:4141/resv
 @CrossOrigin						//to address CORS issues
 public class ResvController {
 	//instantiates class using autowired
@@ -30,8 +30,8 @@ public class ResvController {
 	//@request-body binds the http request values to the entity class
 	public String storeResv(@RequestBody Resv resv) {
 		System.out.println(resv);
-		//return "done";
-		return resvService.storeResv(resv);
+		return "done";
+		//return resvService.storeResv(resv);
 	}
 	
 	// http://localhost:4141/resv/findAllResv
@@ -40,32 +40,23 @@ public class ResvController {
 		return resvService.findAllResv();
 	}
 	
-	// http://localhost:4141/resv/findResvById/1 or // http://localhost:4141/resv/findResvById/100
-	@GetMapping(value = "findResvById/{pid}")
-	//@pathvariable extracts data directly from the url e.g: pid = 1 or 100 as above
-	public String findResvById(@PathVariable("pid") int pid) {
-		return resvService.findResvById(pid);
+	// http://localhost:4141/resv/findResvById/1
+	@GetMapping(value = "findResvById/{resvid}")
+	//@pathvariable extracts data directly from the url eg: resvid = 1 
+	public String findResvById(@PathVariable("resvid") int resvid) {
+		return resvService.findResvById(resvid);
 	}
-	
-	// http://localhost:4141/resv/findResvByPrice/35000
-	@GetMapping(value = "findResvByPrice/{price}")
-	//@pathvariable extracts data directly from the url e.g: price = 35000 as above
-	public List<Resv> findResvByPrice(@PathVariable("price") int price) {
-		return resvService.findResvByPrice(price);
-	}
-	
+		
 	// http://localhost:4141/resv/updateResv
 	@PutMapping(value = "updateResv",consumes = MediaType.APPLICATION_JSON_VALUE)		//pass data in json format
-	//@request-body binds the http request values to the entity class
 	public String updateResv(@RequestBody Resv resv) {
-		return resvService.updateResvDetails(resv);
+		return resvService.updateResv(resv);
 	}
 	
 	// http://localhost:4141/resv/deleteResvById/1
-	@DeleteMapping(value = "deleteResvById/{pid}")
-	//@pathvariable extracts data directly from the url e.g: pid = 1 as above
-	public String deletetResvById(@PathVariable("pid") int pid) {
-		return resvService.deleteResvUsingId(pid);
+	@DeleteMapping(value = "deleteResvById/{resvid}")
+	public String deleteResvById(@PathVariable("resvid") int resvid) {
+		return resvService.deleteResvById(resvid);
 	}
 	
 	// http://localhost:4141/resv/deleteAll

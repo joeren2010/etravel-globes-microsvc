@@ -5,6 +5,10 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.globes.entity.Cab;
+import com.globes.entity.Cart;
 import com.globes.entity.Resv;
 import com.globes.repository.ResvRepository;
 
@@ -14,56 +18,60 @@ public class ResvService {
 	//instantiates interface using autowired
 	@Autowired
 	ResvRepository resvRepository;
+	
 	@Autowired
-	ApiCall apiCall;
+	RestTemplate restTemplate;
 	
 	public String storeResv(Resv resv) {
-		resvRepository.save(resv);			//insert query = similar to pojo
-		return "Resv Details stored successfully";
+		Optional<Resv> result = resvRepository.findById(resv.getResvId());
+		if(result.isPresent()) {
+			return "Resv id must be unique";
+		}else {
+		Cab cc = restTemplate.getForObject("http://CAB-MICRO-SERVICE/findCabById/"+resv.getCabId(), Cab.class);
+		Cart ct = restTemplate.getForObject("http://CART-MICRO-SERVICE/findCartById/"+resv.getCartId(), Cart.class);
+//		Cab cc = restTemplate.getForObject("http://CAB-MICRO-SERVICE/cab/findAllCabByName/"+resv.getCabId(), Cab.class);
+			System.out.println(cc.getCabId()+" "+cc.getCabTitle());
+			System.out.println(ct.getCartId()+" "+ct.getPickupLoc());
+			resv.setCabId(cc.getCabId());
+			resv.setCartId(ct.getCartId());
+			resvRepository.save(resv);
+			return "Resv Details stored successfully";
+		}
 	}
 	
 	public List<Resv> findAllResv() {
 		return resvRepository.findAll();			//select query 
 	}
 	
-	public List<Resv> findResvByPrice(int price){
-		return resvRepository.searchResvByPrice(price);
-	}
-	
 	public String findResvById(int resvid) {
-		//using "optional" method
-		Optional<Resv> result = resvRepository.findById(resvid);			//using primary key
+		Optional<Resv> result = resvRepository.findById(resvid);			//using "optional" method; using primary key
 		if(result.isPresent()) {
-			Resv pp = result.get();
-			return pp.toString();
+			//Resv pp = result.get();
+			return result.get().toString();
 		}else {
 			return "Resv not present";
 		}
 	}
 	
-	public String updateResvDetails(Resv resv) {
-		//using "optional" method
-		Optional<Resv> result = resvRepository.findById(resv.getResvId());		//using primary key
+	public String updateResv(Resv pp) {
+		Optional<Resv> result = resvRepository.findById(pp.getResvId());
 		if(result.isPresent()) {
-			Resv pp	= result.get();
-			pp.setTotalAmount(resv.getTotalAmount());
-			/*
-			 * 	we can update more property 
-			 * 
-			 */
-			resvRepository.saveAndFlush(pp);			//flush = clears-out the repo of any buffer data
-			return "Resv Details updated successfully";
+			Resv p = result.get();
+			p.setResvStatus(pp.getResvStatus());
+			//p.setPrice(pp.getPrice());
+			resvRepository.saveAndFlush(p);
+			return "Resv details updated successfully";
 		}else {
 			return "Resv not present";
 		}
 	}
-	
-	public String deleteResvUsingId(int resvid) {
+		
+	public String deleteResvById(int resvid) {
 		//using "optional" method
 		Optional<Resv> result = resvRepository.findById(resvid);              //using primary key
 		if(result.isPresent()) {
-			Resv pp = result.get();
-			resvRepository.deleteById(pp.getResvId());
+			Resv p = result.get();
+			resvRepository.deleteById(p.getResvId());
 			return "Resv details deleted successfully";
 		}else {
 			return "Resv not present";
